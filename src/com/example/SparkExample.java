@@ -19,15 +19,39 @@ public class SparkExample {
 		Dataset<Row> df = session
 		.read()
 		.format("org.apache.spark.sql.cassandra")
-	    .option("table", "user")
-	    .option("keyspace", "ks1")
-	    .load();
+	    .option("table", "ratings")
+	    .option("keyspace", "movielens")
+	    .load()
+	    .cache();
+	    
+	    df.createOrReplaceTempView("ratings");
+	    
+	    session
+	    .read()
+	    .format("jdbc")
+	    .option("url", "jdbc:mysql://localhost/movielens")
+	    .option("driver", "com.mysql.jdbc.Driver")
+	    .option("dbtable", "movies")
+	    .option("user", "root")
+	    .option("password", "training")
+	    .load()
+	    .cache()
+	    .createOrReplaceTempView("movies");
+	    
+	    
 		
-		df.show();
+	    Dataset<Row> agg = session
+	    .sql("select t1.movieid, t1.title, avg(t2.rating) from movies t1 join ratings t2 on t1.movieid = t2.movieid group by t1.movieid, t1.title");
+	    
+	    agg.coalesce(1)
+	    .write()
+	    .format("csv")
+	    .option("header", "true")
+	    .mode("overwrite")
+	    .save("ratings");
 		
-		System.out.printf("No of partitions: %d\n", df.rdd().partitions().length);
+		agg.show();
 		
-		df.printSchema();
 		
 		session.close();
 		
