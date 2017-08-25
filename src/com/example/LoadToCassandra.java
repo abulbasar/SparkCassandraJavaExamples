@@ -57,19 +57,15 @@ public class LoadToCassandra {
 	}
 	
 	public static void main(String[] args) {
-
-		
+		String basePath = args[0];
+		System.out.println("Base path: " + basePath);
 		SparkConf conf = new SparkConf()
 				.setAppName(LoadToCassandra.class.getName())
 				.setIfMissing("spark.master", "local[*]");
 		
 		spark = SparkSession.builder().config(conf).getOrCreate();
-		
-		loadCsvToCassandraTable("/home/training/Downloads/datasets/ml-latest-small/movies.csv", "demo", "movies");
-		loadCsvToCassandraTable("/home/training/Downloads/datasets/ml-latest-small/ratings.csv", "demo", "ratings");
-
-
-		
+		loadCsvToCassandraTable(basePath + "/movies.csv", "demo", "movies");
+		loadCsvToCassandraTable(basePath + "/ratings.csv", "demo", "ratings");		
 		spark.close();
 		
 	}
