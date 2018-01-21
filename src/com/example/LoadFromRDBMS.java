@@ -30,7 +30,7 @@ public class LoadFromRDBMS {
 		String table = "employees";
 		
 		SparkConf conf = new SparkConf()
-				.setAppName(LoadToCassandra.class.getName())
+				.setAppName(LoadFromRDBMS.class.getName())
 				.setIfMissing("spark.master", "local[*]");
 		
 		spark = SparkSession.builder().config(conf).getOrCreate();
