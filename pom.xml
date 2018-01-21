@@ -20,7 +20,7 @@
 
 
 	<properties>
-		<sparkVersion>2.1.1</sparkVersion>
+		<sparkVersion>2.2.0</sparkVersion>
 		<scalaVersion>2.11</scalaVersion>
 	</properties>
 	<dependencies>
