@@ -19,9 +19,9 @@ public class SparkCassandraApp {
 				.createOrReplaceTempView(tableName);
 	}
 
-	public static void createSparkView(String keySpace, String cassandraTableName, String viewName) {
+	public static void createSparkView(String keySpace, String tableName, String viewName) {
 		spark.read().format("org.apache.spark.sql.cassandra").option("keyspace", keySpace)
-				.option("table", cassandraTableName).load().createOrReplaceTempView(viewName);
+				.option("table", tableName).load().createOrReplaceTempView(viewName);
 
 	}
 
