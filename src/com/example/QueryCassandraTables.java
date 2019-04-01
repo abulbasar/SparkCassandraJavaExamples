@@ -45,7 +45,7 @@ public class QueryCassandraTables {
 		
 		df.show();
 		
-		df.coalesce(1).write().format("csv").mode(SaveMode.Overwrite).save("movie-rating");
+		df.coalesce(1).write().format("csv").mode(SaveMode.Overwrite).save("/tmp/movie-rating");
 		
 	}
 

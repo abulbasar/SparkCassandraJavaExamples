@@ -13,8 +13,15 @@ import org.apache.spark.sql.SparkSession;
 /*
 Create the following 2 tables in Cassandra
 
-create table movies (movieId int primary key, title text, genres text);
-create table ratings(
+create keyspace if not exists demo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
+create table demo.movies (
+    movieId int primary key,
+    title text,
+    genres text
+);
+
+create table demo.ratings(
     userId int, 
     movieId int, 
     rating float, 
