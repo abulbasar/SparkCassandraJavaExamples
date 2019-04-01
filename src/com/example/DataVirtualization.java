@@ -6,7 +6,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 
-public class SparkExample {
+public class DataVirtualization {
 	
 	public static void main(String[] args) {
 		SparkConf conf = new SparkConf()

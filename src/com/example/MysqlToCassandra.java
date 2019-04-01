@@ -7,7 +7,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 
-public class LoadFromRDBMS {
+public class MysqlToCassandra {
 	private static SparkSession spark = null;
 	
 	public static void registerTable(String serverName, String dbName, String table, String username, String password) {
@@ -30,7 +30,7 @@ public class LoadFromRDBMS {
 		String table = "employees";
 		
 		SparkConf conf = new SparkConf()
-				.setAppName(LoadFromRDBMS.class.getName())
+				.setAppName(MysqlToCassandra.class.getName())
 				.setIfMissing("spark.master", "local[*]");
 		
 		spark = SparkSession.builder().config(conf).getOrCreate();

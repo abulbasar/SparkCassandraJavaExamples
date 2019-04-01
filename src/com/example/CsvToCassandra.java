@@ -30,7 +30,7 @@ create table demo.ratings(
 ) with clustering order by (timestamp desc);
  
 */
-public class LoadToCassandra {
+public class CsvToCassandra {
 	private static SparkSession spark = null;
 	
 	public static void loadCsvToCassandraTable(String path, String keyspace, String table) {
@@ -67,7 +67,7 @@ public class LoadToCassandra {
 		String basePath = args[0];
 		System.out.println("Base path: " + basePath);
 		SparkConf conf = new SparkConf()
-				.setAppName(LoadToCassandra.class.getName())
+				.setAppName(CsvToCassandra.class.getName())
 				.setIfMissing("spark.master", "local[*]");
 		
 		spark = SparkSession.builder().config(conf).getOrCreate();
