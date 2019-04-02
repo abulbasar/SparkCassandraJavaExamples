@@ -13,7 +13,8 @@ import org.apache.spark.sql.SparkSession;
 /*
 Create the following 2 tables in Cassandra
 
-create keyspace if not exists demo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+create keyspace if not exists demo
+WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
 create table demo.movies (
     movieId int primary key,
@@ -68,7 +69,10 @@ public class CsvToCassandra {
 		System.out.println("Base path: " + basePath);
 		SparkConf conf = new SparkConf()
 				.setAppName(CsvToCassandra.class.getName())
-				.setIfMissing("spark.master", "local[*]");
+				.setIfMissing("spark.master", "local[*]")
+                .setIfMissing("spark.cassandra.auth.username", "cassandra")
+                .setIfMissing("spark.cassandra.auth.password", "cassandra")
+                .setIfMissing("spark.cassandra.connection.host", "127.0.0.1");
 		
 		spark = SparkSession.builder().config(conf).getOrCreate();
 		loadCsvToCassandraTable(basePath + "/movies.csv", "demo", "movies");

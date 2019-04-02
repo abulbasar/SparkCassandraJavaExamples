@@ -1,13 +1,14 @@
 package com.example;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.spark.SparkConf;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class QueryCassandraTables {
 	private static SparkSession spark = null;
@@ -32,9 +33,15 @@ public class QueryCassandraTables {
 		
 		SparkConf conf = new SparkConf()
 				.setAppName(QueryCassandraTables.class.getName())
-				.setIfMissing("spark.master", "local[*]");
+				.setIfMissing("spark.master", "local[*]")
+                //.set("spark.cassandra.connection.host", "localhost")
+                //.setIfMissing("spark.cassandra.auth.username", "cassandra")
+                //.setIfMissing("spark.cassandra.auth.password", "cassandra")
+                .setIfMissing("spark.default.parallelism", "16");
 		
 		spark = SparkSession.builder().config(conf).getOrCreate();
+
+
 		
 		registerView("demo", "movies");
 		registerView("demo", "ratings");
@@ -46,7 +53,7 @@ public class QueryCassandraTables {
 		df.show();
 		
 		df.coalesce(1).write().format("csv").mode(SaveMode.Overwrite).save("/tmp/movie-rating");
-		
+
 	}
 
 }
