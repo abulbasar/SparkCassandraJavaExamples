@@ -1,1 +1,1 @@
-# spark-cassandra-java-example
+# spark-cassandra-java-com.example

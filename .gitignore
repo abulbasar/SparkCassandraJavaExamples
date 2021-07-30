@@ -1,8 +1,11 @@
 # Compiled class file
 *.class
-
+*.iml
 # Log file
 *.log
+target/
+spark-warehouse/
+.DS_Store
 
 # BlueJ files
 *.ctxt
